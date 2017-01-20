@@ -21,7 +21,7 @@ import flash.net.NetStream;
 
 class Player extends Sprite
 {
-	private static inline var BUFFER_TIME:Float = 5.0;
+	private static inline var BUFFER_TIME:Float = 1.0;
 
 	private var _stage:Stage;
 	private var _movieClip:MovieClip;
@@ -84,6 +84,11 @@ class Player extends Sprite
 	public function isVideoStopped():Bool
 	{
 		return _videoStopped;
+	}
+
+	public function toggleMute(enable:Bool)
+	{
+		_netConnection.call("toggleAudioFlag", null, _source, enable);
 	}
 
 	public function play():Void

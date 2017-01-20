@@ -38,6 +38,7 @@ class Controls extends Sprite
 	private var _videoSeeking:Bool;
 	private var _position:Float;
 	private var _duration:Float;
+	private var _muteEnabled:Bool;
 
 	public function new(player:Player, ?poster:Poster = null)
 	{
@@ -48,6 +49,8 @@ class Controls extends Sprite
 
 		_player = player;
 		_poster = poster;
+
+		_muteEnabled = false;
 
 		_container = new Sprite();
 		addChild(_container);
@@ -72,7 +75,7 @@ class Controls extends Sprite
 	}
 
 	private var togglePlayButton:PushButton;
-	private var rewindButton:PushButton;
+	private var toggleAudioFlagButton:PushButton;
 	private var toggleVolumeButton:PushButton;
 	private var toggleAspectRatioButton:PushButton;
 	private var toggleFullScreenButton:PushButton;
@@ -96,14 +99,14 @@ class Controls extends Sprite
 		togglePlayButton.addEventListener(
 			MouseEvent.ROLL_OUT, togglePlayButton_rollOutHandler);
 
-		rewindButton = new PushButton(
-			_container, 75, 45, "|< REWIND", rewindButton_clickHandler);
-		rewindButton.width = 75;
-		rewindButton.height = 45;
-		rewindButton.addEventListener(
-			MouseEvent.ROLL_OVER, rewindButton_rollOverHandler);
-		rewindButton.addEventListener(
-			MouseEvent.ROLL_OUT, rewindButton_rollOutHandler);
+		toggleAudioFlagButton = new PushButton(
+			_container, 75, 45, "Toggle audio", toggleAudioFlagButton_clickHandler);
+		toggleAudioFlagButton.width = 75;
+		toggleAudioFlagButton.height = 45;
+		toggleAudioFlagButton.addEventListener(
+			MouseEvent.ROLL_OVER, toggleAudioFlagButton_rollOverHandler);
+		toggleAudioFlagButton.addEventListener(
+			MouseEvent.ROLL_OUT, toggleAudioFlagButton_rollOutHandler);
 
 		toggleVolumeButton = new PushButton(
 			_container, 150, 45, "||||| 100%", toggleVolumeButton_clickHandler);
@@ -135,7 +138,7 @@ class Controls extends Sprite
 		positionLabel = new Label(_container, 0, 15, "00:00:00");
 		positionLabel.width = 60;
 		positionLabel.height = 15;
-		positionLabel.align = "center";
+		//positionLabel.align = "center";
 
 		positionSlider = new HSlider(
 			_container, 60, 15, positionSlider_changeHandler);
@@ -151,12 +154,12 @@ class Controls extends Sprite
 		durationLabel = new Label(_container, 255, 15, "00:00:00");
 		durationLabel.width = 60;
 		durationLabel.height = 15;
-		durationLabel.align = "center";
+		//durationLabel.align = "center";
 
 		indicatorLabel = new Label(_container, 0, 30, "");
 		indicatorLabel.width = 315;
 		indicatorLabel.height = 15;
-		indicatorLabel.align = "center";
+		//indicatorLabel.align = "center";
 	}
 
 	private function resize():Void
@@ -294,47 +297,19 @@ class Controls extends Sprite
 		indicatorLabel.text = "";
 	}
 
-	private function rewindButton_clickHandler(event:MouseEvent):Void
+	private function toggleAudioFlagButton_clickHandler(event:MouseEvent):Void
 	{
-		_videoSeeking = false;
-
-		if (indicatorLabel.text != "NOW LOADING...")
-			indicatorLabel.text = "";
-
-		if (positionLabel.text == "00:00:00")
-			return;
-
-		switch (togglePlayButton.label)
-		{
-			case "|| PAUSE":
-			{
-				_player.pause();
-				_player.seek(0.0);
-				_player.resume();
-			}
-
-			case "> RESUME":
-			{
-				_player.resume();
-				_player.pause();
-				_player.seek(0.0);
-			}
-		}
+		_muteEnabled = !_muteEnabled;
+		_player.toggleMute(_muteEnabled);
 	}
 
-	private function rewindButton_rollOverHandler(event:MouseEvent):Void
+	private function toggleAudioFlagButton_rollOverHandler(event:MouseEvent):Void
 	{
-		if (indicatorLabel.text == "NOW LOADING...")
-			return;
-
-		indicatorLabel.text = "REWIND";
+		indicatorLabel.text = "Click here for toggling mute flag";
 	}
 
-	private function rewindButton_rollOutHandler(event:MouseEvent):Void
+	private function toggleAudioFlagButton_rollOutHandler(event:MouseEvent):Void
 	{
-		if (indicatorLabel.text == "NOW LOADING...")
-			return;
-
 		indicatorLabel.text = "";
 	}
 

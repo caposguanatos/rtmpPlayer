@@ -1,66 +1,13 @@
-rtmpPlayer - a small and simple flv player
-==========================================
-
-Introduction
-------------
-
-The **rtmpPlayer** is an open source flash flv player made using **Haxe**.
-It is **free** for both commercial and non-commerical use.
-
 Compile
 -------
 
-To build the **rtmpPlayer**, you will need the following:
+Requeriments:
+Haxe (install in ubuntu via "sudo apt-get install haxe")
 
-* **Haxe 2.10.0**: <http://haxe.org/download/version/2.10.0>
-* **MinimalCompsHX(for Haxe2.10)**: <https://github.com/Beeblerox/MinimalCompsHX/tree/Haxe2.10>
-* **NME 3.5.4**: <https://github.com/haxenme/nme/tree/3.5.4>
-
-To compile with **Haxe 2.10.0**, enter the following command:
+To compile enter the following command:
 
     $ cd rtmpPlayer/src
-    $ haxe --dead-code-elimination -main rtmpPlayer.Main -swf rtmpPlayer.swf
-
-Embed
------
-
-Here is a basic example to embed the player:
-
-    <object data="rtmpPlayer.swf"
-            id="rtmpPlayer"
-            type="application/x-shockwave-flash"
-            width="640"
-            height="480">
-        <param value="false" name="menu" />
-        <param value="noScale" name="scale" />
-        <param value="true" name="allowFullscreen" />
-        <param value="always" name="allowScriptAccess" />
-        <param value="#000000" name="bgcolor" />
-        <param value="high" name="quality" />
-        <param value="opaque" name="wmode" />
-        <!-- To play flv over RTMP without preview -->
-        <param value="source=video&amp;server=rtmp://example.com/vod"
-               name="flashvars" />
-    </object>
-
-Flashvars
----------
-
-Here is the list of variables that you can pass to the player:
-
-* **source**: The actual path of the media (flv or mp4) to play.
-* **server**: The location of the RTMP server.
-* **poster**: The path to the image (png, jpg or gif) as preview.
-
-Examples of *flashvars*:
-
-    <!-- To play mp4 over RTMP without preview -->
-    <param value="source=mp4:video.mp4&amp;server=rtmp://example.com/vod"
-           name="flashvars" />
-
-    <!-- To play flv over HTTP with preview -->
-    <param value="source=http://example.com/video.flv&amp;poster=poster.png"
-           name="flashvars" />
+    $ haxe -main rtmpPlayer.Main -swf rtmpPlayer.swf
 
 License
 -------
