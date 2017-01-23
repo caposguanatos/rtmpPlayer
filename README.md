@@ -1,3 +1,6 @@
+This is only a sample player for demostrating https://github.com/caposguanatos/crtmpserver features.
+
+
 Compile
 -------
 
@@ -7,7 +10,11 @@ Haxe (install in ubuntu via "sudo apt-get install haxe")
 To compile enter the following command:
 
     $ cd rtmpPlayer/src
-    $ haxe -main rtmpPlayer.Main -swf rtmpPlayer.swf
+    $ haxe -main rtmpPlayer.Main -swf ../bin/rtmpPlayer.swf
+
+-------
+
+https://github.com/mikkun/rtmpPlayer
 
 License
 -------
